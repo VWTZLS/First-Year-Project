@@ -1,0 +1,79 @@
+import numpy as np 
+import scipy
+from scipy.stats import chisquare
+from scipy.stats import chi2_contingency
+from numpy import genfromtxt
+import pandas as pd
+
+df = pd.read_excel('/content/Student grades 2019_2020.xlsx', 
+                   dtype = {"Gender": str,
+                            "Grade": float})
+Gender = df["Gender"]
+Grade = df['FINAL GRADE']
+
+GenderNP = Gender.to_numpy(dtype=None, copy=False)
+GradeNP = Grade.to_numpy(dtype=None, copy=False)
+
+
+#C1:<=4
+#C2:<=6
+#C3:<=7
+#C4:<=8
+#C5:<=9
+#C6:>9
+males = 0 
+females = 0 
+CM = np.zeros([6])
+CF = np.zeros([6])
+GenderVar = np.zeros(GenderNP.size)
+
+for i in range(GenderNP.size):
+  if GenderNP[i] == 'M':
+    if GradeNP[i] <= 4:
+      CM[0]+=1
+    elif GradeNP[i] <= 6:
+      CM[1]+=1
+    elif GradeNP[i] <= 7:
+      CM[2]+=1
+    elif GradeNP[i] <= 8:
+      CM[3]+=1
+    elif GradeNP[i] <= 9:
+      CM[4]+=1
+    elif GradeNP[i] > 9:
+      CM[5]+=1
+    males = males + 1
+  elif GenderNP[i] == 'F':
+    if GradeNP[i] <= 4:
+      CF[0]+=1
+    elif GradeNP[i] <= 6:
+      CF[1]+=1
+    elif GradeNP[i] <= 7:
+      CF[2]+=1
+    elif GradeNP[i] <= 8:
+      CF[3]+=1
+    elif GradeNP[i] <= 9:
+      CF[4]+=1
+    elif GradeNP[i] > 9:
+      CF[5]+=1
+    females = females + 1
+  
+#ExpectedCM = np.zeros([6])
+#ExpectedCF = np.zeros([6])
+
+
+#sumall = males + females
+
+#for i in range(6):
+ # ExpectedCM[i] = males * (CM[i]+CF[i]) / sumall
+  
+#for i in range(6):
+ # ExpectedCF[i] = females * (CM[i]+CF[i]) / sumall 
+
+OBS = np.zeros([6,2])
+OBS[:,0] = CM
+OBS[:,1] = CF
+c = chi2_contingency(OBS)
+print(c)
+
+#print(df)
+
