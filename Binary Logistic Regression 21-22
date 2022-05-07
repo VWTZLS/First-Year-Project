@@ -39,3 +39,9 @@ prediction = list(map(round, yhat))
 # comparing original and predicted values of gender
 print('Actual values', list(GenderVar))
 print('Predictions :', prediction)
+
+# prediction per possible grade
+X_test = [1, 1.5, 2, 2.5, 3, 3.5, 4, 4.5, 5, 6, 6.5, 7, 7.5, 8, 8.5, 9, 9.5, 10]
+y_pred=log_reg.predict(X_test)
+print('Possible grades:',X_test)
+print('Corresponding probability:',y_pred)
