@@ -4,7 +4,6 @@ from scipy.stats import t
 
 url2019f = 'https://raw.githubusercontent.com/VWTZLS/First-Year-Project/main/2019%20females.csv'
 f2019 = pd.read_csv(url2019f)
-f2019 = [list(row) for row in f2019.values]
 url2019m = 'https://raw.githubusercontent.com/VWTZLS/First-Year-Project/main/2019%20males.csv'
 m2019 = pd.read_csv(url2019m)
 
